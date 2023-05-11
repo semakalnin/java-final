@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Borrower List</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+          crossorigin="anonymous">
+</head>
+<body>
+<div class="container">
+    <h1>Borrower List</h1>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>email</th>
+            <th>phone</th>
+            <th>books</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="borrower : ${borrowers}">
+            <td th:text="${borrower.id}"></td>
+            <td th:text="${borrower.name}"></td>
+            <td th:text="${borrower.email}"></td>
+            <td th:text="${borrower.phoneNumber}"></td>
+            <td>
+                <ul>
+                    <li th:each="book : ${borrower.getBooks()}">
+                        <span th:text="${book.title}"></span>
+                        <a th:href="@{/borrowers/return/{id}/{bookId}(id=${borrower.id}, bookId=${book.id})}" class="btn btn-danger btn-sm">RETURN</a>
+                    </li>
+                </ul>
+            </td>
+            <td>
+                <a th:href="@{/borrowers/update/{id}(id=${borrower.id})}" class="btn btn-primary btn-sm">Update</a>
+                <a th:href="@{/borrowers/delete/{id}(id=${borrower.id})}" class="btn btn-danger btn-sm">Delete</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <a th:href="@{/borrowers/new}" class="btn btn-success">Add New Borrower</a>
+</div>
+</body>
+</html>

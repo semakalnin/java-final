@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Book List</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+        crossorigin="anonymous">
+</head>
+<body>
+<form th:action="@{/books/search-external}" method="post">
+  <input type="text" id="title" name="title">
+  <button type="submit">Add new book</button>
+</form>
+
+
+<div class="container">
+  <h1>Book List</h1>
+  <table class="table">
+    <thead>
+    <tr>
+      <th>ID</th>
+      <th>Title</th>
+      <th>Publisher</th>
+      <th>ISBN</th>
+      <th>Author</th>
+      <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="book : ${books}">
+      <td>
+        <img th:src="${book.image}">
+      </td>
+      <td th:text="${book.title}"></td>
+      <td th:text="${book.publisher}"></td>
+      <td th:text="${book.isbn}"></td>
+      <td th:text="${book.author}"></td>
+      <td>
+        <a th:href="@{/books/{id}(id=${book.id})}" class="btn btn-primary btn-sm">View</a>
+        <a th:href="@{/books/delete/{id}(id=${book.id})}" class="btn btn-danger btn-sm">Delete</a>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+</body>
+</html>

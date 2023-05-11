@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Book Form</title>
+  <link rel="stylesheet" href="/css/styles.css" />
+</head>
+<body>
+<div class="container" th:object="${book}">
+  <h1 th:text="${book.title}"></h1>
+  <table class="table">
+    <tbody>
+    <tr>
+      <td>
+        <img th:src="${book.image}">
+      </td>
+      <td th:text="${book.publisher}"></td>
+      <td th:text="${book.isbn}"></td>
+      <td th:text="${book.author}"></td>
+      <td>
+        <a th:href="@{/books}" class="btn btn-primary btn-sm">View All</a>
+        <a th:if="${book.id != null}" th:href="@{/books/delete/{id}(id=${book.id})}" class="btn btn-danger btn-sm">Delete</a>
+
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+</body>
+</html>

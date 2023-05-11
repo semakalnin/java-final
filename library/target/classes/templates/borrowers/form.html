@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Borrower Form</title>
+    <link rel="stylesheet" href="/css/styles.css" />
+</head>
+<body>
+<h1>Borrower Form</h1>
+<form th:object="${borrower}" th:action="@{/borrowers}" method="post">
+    <input type="hidden" th:field="*{id}">
+    <div>
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" th:field="*{name}" />
+        <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
+    </div>
+    <div>
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" th:field="*{email}" />
+        <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
+    </div>
+    <div>
+        <label for="phone_number">Phone number:</label>
+        <input type="text" id="phone_number" name="phone_number" th:field="*{phoneNumber}" />
+        <span th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}"></span>
+    </div>
+    <div th:each="book : ${books}" class="checkbox">
+        <label><input name="selectedBooks" type="checkbox" th:value="${book.id}" th:checked="${borrower.books.contains(book)}"> <span th:text="${book.title}"></span></label>
+    </div>
+
+    <button type="submit">Save</button>
+    <a th:href="@{/borrowers}">Cancel</a>
+</form>
+</body>
+</html>
